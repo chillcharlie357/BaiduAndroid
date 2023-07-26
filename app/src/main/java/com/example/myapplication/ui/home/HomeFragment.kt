@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FeedItemWithImageBinding
+import com.example.myapplication.databinding.FeedItemWithoutImageBinding
 import com.example.myapplication.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -101,16 +103,11 @@ class HomeFragment : Fragment() {
     inner class FeedAdapter(val feedList: List<FeedItem>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        inner class FeedItemWithImageViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView) {
-            val titleTextView: TextView = itemView.findViewById(R.id.feedTitle)
-            val imageView: ImageView = itemView.findViewById(R.id.feedImage)
-        }
+        inner class FeedItemWithImageViewHolder(val binding: FeedItemWithImageBinding) :
+            RecyclerView.ViewHolder(binding.root)
 
-        inner class FeedItemWithoutImageViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView) {
-            val titleTextView: TextView = itemView.findViewById(R.id.feedTitle)
-        }
+        inner class FeedItemWithoutImageViewHolder(val binding: FeedItemWithoutImageBinding) :
+            RecyclerView.ViewHolder(binding.root)
 
 
         override fun getItemViewType(position: Int): Int {
@@ -124,15 +121,21 @@ class HomeFragment : Fragment() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             return when (viewType) {
                 TYPE_WITH_IMAGE -> {
-                    val view = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.feed_item_with_image, parent, false)
-                    FeedItemWithImageViewHolder(view)
+                    val binding = FeedItemWithImageBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                    FeedItemWithImageViewHolder(binding)
                 }
 
                 TYPE_WITHOUT_IMAGE -> {
-                    val view = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.feed_item_without_image, parent, false)
-                    FeedItemWithoutImageViewHolder(view)
+                    val binding = FeedItemWithoutImageBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                    FeedItemWithoutImageViewHolder(binding)
                 }
 
                 else -> throw IllegalArgumentException("Invalid view type")
@@ -145,13 +148,13 @@ class HomeFragment : Fragment() {
             when (holder.itemViewType) {
                 TYPE_WITH_IMAGE -> {
                     val viewHolder = holder as FeedItemWithImageViewHolder
-                    viewHolder.imageView.setImageResource(feedItem.imageId!!)
-                    viewHolder.titleTextView.text = feedItem.title
+                    viewHolder.binding.feedTitle.text = feedItem.title
+                    viewHolder.binding.feedImage.setImageResource(feedItem.imageId!!)
                 }
 
                 TYPE_WITHOUT_IMAGE -> {
                     val viewHolder = holder as FeedItemWithoutImageViewHolder
-                    viewHolder.titleTextView.text = feedItem.title
+                    viewHolder.binding.feedTitle.text = feedItem.title
                 }
 
                 else -> throw IllegalArgumentException("Invalid view type")
