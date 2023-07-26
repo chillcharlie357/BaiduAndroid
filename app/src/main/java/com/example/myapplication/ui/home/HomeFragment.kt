@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,12 +57,13 @@ class HomeFragment : Fragment() {
 
         val weatherTextView = _binding!!.WeatherTextView
 
-        Log.d(TAG,"get textview")
+        Log.d(TAG, "get textview")
 
 
         weatherTextView.setOnClickListener {
-            Log.d(TAG,"set textview")
-            findNavController().navigate(R.id.weatherFragment)
+            Log.d(TAG, "set textview")
+            val action = HomeFragmentDirections.actionNavigationHomeToWeatherFragment()
+            findNavController().navigate(action)
         }
 
         return binding.root
@@ -75,12 +75,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun initFakeFeed() {
+        val imageIds = listOf(R.drawable.ic_home_black_24dp, null)
         repeat(100) {
-            fakeFeed.add(FeedItem(getString(R.string.title_home), R.drawable.ic_home_black_24dp))
+            fakeFeed.add(FeedItem(getString(R.string.title_home), imageIds.random()))
         }
     }
 
-    private fun setWeatherInfo(){
+    private fun setWeatherInfo() {
         val temperature: String = "33"
         val location: String = "兰溪"
         val airQuality: String = "优"
@@ -91,32 +92,78 @@ class HomeFragment : Fragment() {
         weatherInfoTextView.text = weatherInfo
     }
 
-   inner class FeedItem(val title: String, val imageId: Int)
+    inner class FeedItem(val title: String, val imageId: Int? = null)
+    private companion object {
+        const val TYPE_WITH_IMAGE = 1
+        const val TYPE_WITHOUT_IMAGE = 2
+    }
 
-    inner class FeedAdapter(val feedList: List<FeedItem>) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val itemTitle = view.findViewById<TextView>(R.id.feedTitle)
-            val itemImage = view.findViewById<ImageView>(R.id.feedImage)
+    inner class FeedAdapter(val feedList: List<FeedItem>) :
+        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+        inner class FeedItemWithImageViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
+            val titleTextView: TextView = itemView.findViewById(R.id.feedTitle)
+            val imageView: ImageView = itemView.findViewById(R.id.feedImage)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAdapter.ViewHolder {
-//        TODO("Not yet implemented")
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item_with_image, parent, false)
-            return ViewHolder(view)
+        inner class FeedItemWithoutImageViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
+            val titleTextView: TextView = itemView.findViewById(R.id.feedTitle)
         }
 
-        override fun onBindViewHolder(holder: FeedAdapter.ViewHolder, position: Int) {
-//        TODO("Not yet implemented")
+
+        override fun getItemViewType(position: Int): Int {
+            return if (feedList[position].imageId != null) {
+                TYPE_WITH_IMAGE
+            } else {
+                TYPE_WITHOUT_IMAGE
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return when (viewType) {
+                TYPE_WITH_IMAGE -> {
+                    val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.feed_item_with_image, parent, false)
+                    FeedItemWithImageViewHolder(view)
+                }
+
+                TYPE_WITHOUT_IMAGE -> {
+                    val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.feed_item_without_image, parent, false)
+                    FeedItemWithoutImageViewHolder(view)
+                }
+
+                else -> throw IllegalArgumentException("Invalid view type")
+            }
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val feedItem = feedList[position]
-            holder.itemImage.setImageResource(feedItem.imageId)
-            holder.itemTitle.text = feedItem.title
+
+            when (holder.itemViewType) {
+                TYPE_WITH_IMAGE -> {
+                    val viewHolder = holder as FeedItemWithImageViewHolder
+                    viewHolder.imageView.setImageResource(feedItem.imageId!!)
+                    viewHolder.titleTextView.text = feedItem.title
+                }
+
+                TYPE_WITHOUT_IMAGE -> {
+                    val viewHolder = holder as FeedItemWithoutImageViewHolder
+                    viewHolder.titleTextView.text = feedItem.title
+                }
+
+                else -> throw IllegalArgumentException("Invalid view type")
+            }
+
             holder.itemView.setOnClickListener {
                 val action = HomeFragmentDirections.actionNavigationHomeToDetailFragment("test")
                 findNavController().navigate(action)
             }
         }
+
         override fun getItemCount(): Int {
-//        TODO("Not yet implemented")
             return feedList.size
         }
 
