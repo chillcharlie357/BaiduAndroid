@@ -52,5 +52,20 @@
         app:layout_constraintTop_toBottomOf="@id/search_box"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/WeatherTextView"
+        android:layout_width="217dp"
+        android:layout_height="125dp"
+        android:gravity="top"
+        android:outlineProvider="background"
+        android:text="WeatherTextView"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/search_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

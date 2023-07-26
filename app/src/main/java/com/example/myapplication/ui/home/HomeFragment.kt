@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
@@ -8,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 
@@ -27,6 +30,7 @@ class HomeFragment : Fragment() {
 
     private val fakeFeed = ArrayList<FeedItem>(1000)
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +52,20 @@ class HomeFragment : Fragment() {
         val adapter = FeedAdapter(fakeFeed)
         recyclerView.adapter = adapter
 
+
+        /**weather*/
+        setWeatherInfo()
+
+        val weatherTextView = _binding!!.WeatherTextView
+
+        Log.d(TAG,"get textview")
+
+
+        weatherTextView.setOnClickListener {
+            Log.d(TAG,"set textview")
+            findNavController().navigate(R.id.weatherFragment)
+        }
+
         return binding.root
     }
 
@@ -61,33 +79,46 @@ class HomeFragment : Fragment() {
             fakeFeed.add(FeedItem(getString(R.string.title_home), R.drawable.ic_home_black_24dp))
         }
     }
-}
 
-class FeedItem(val title: String, val imageId: Int)
+    private fun setWeatherInfo(){
+        val temperature: String = "33"
+        val location: String = "兰溪"
+        val airQuality: String = "优"
+        val weatherInfo: String =
+            String.format("气温：%s\n位置：%s\n空气质量：%s", temperature, location, airQuality)
 
-class FeedAdapter(val feedList: List<FeedItem>) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val itemTitle = view.findViewById<TextView>(R.id.feedTitle)
-        val itemImage = view.findViewById<ImageView>(R.id.feedImage)
+        val weatherInfoTextView = _binding!!.WeatherTextView
+        weatherInfoTextView.text = weatherInfo
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAdapter.ViewHolder {
+   inner class FeedItem(val title: String, val imageId: Int)
+
+    inner class FeedAdapter(val feedList: List<FeedItem>) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val itemTitle = view.findViewById<TextView>(R.id.feedTitle)
+            val itemImage = view.findViewById<ImageView>(R.id.feedImage)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAdapter.ViewHolder {
 //        TODO("Not yet implemented")
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item, parent, false)
-        return ViewHolder(view)
-    }
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item_with_image, parent, false)
+            return ViewHolder(view)
+        }
 
-    override fun onBindViewHolder(holder: FeedAdapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: FeedAdapter.ViewHolder, position: Int) {
 //        TODO("Not yet implemented")
-        val feedItem = feedList[position]
-        holder.itemImage.setImageResource(feedItem.imageId)
-        holder.itemTitle.text = feedItem.title
-    }
-
-    override fun getItemCount(): Int {
+            val feedItem = feedList[position]
+            holder.itemImage.setImageResource(feedItem.imageId)
+            holder.itemTitle.text = feedItem.title
+            holder.itemView.setOnClickListener {
+                val action = HomeFragmentDirections.actionNavigationHomeToDetailFragment("test")
+                findNavController().navigate(action)
+            }
+        }
+        override fun getItemCount(): Int {
 //        TODO("Not yet implemented")
-        return feedList.size
+            return feedList.size
+        }
+
     }
-
-
 }
