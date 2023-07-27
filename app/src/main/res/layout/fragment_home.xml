@@ -5,11 +5,56 @@
     android:id="@+id/home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
+    android:filterTouchesWhenObscured="true"
+    android:fitsSystemWindows="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    >
+    tools:context=".ui.home.HomeFragment">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="22dp"
+        android:clickable="true"
+        android:clipChildren="true"
+        android:gravity="top"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/WeatherTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:foregroundGravity="top"
+            android:gravity="top"
+            android:outlineProvider="background"
+            android:stateListAnimator="@android:anim/fade_in"
+            android:text="WeatherTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/home_imageButton"
+            style="@android:style/Widget.Material.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="clip_horizontal"
+            android:layout_weight="1"
+            android:adjustViewBounds="false"
+            android:backgroundTint="#00FFFFFF"
+            android:clickable="true"
+            android:foregroundGravity="top"
+            android:src="@android:drawable/ic_menu_add"
+            android:stateListAnimator="@android:animator/fade_in" />
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/search_box"
@@ -51,21 +96,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_box"
         tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/WeatherTextView"
-        android:layout_width="217dp"
-        android:layout_height="125dp"
-        android:gravity="top"
-        android:outlineProvider="background"
-        android:text="WeatherTextView"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/search_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

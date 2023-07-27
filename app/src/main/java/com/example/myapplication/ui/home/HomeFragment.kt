@@ -57,14 +57,17 @@ class HomeFragment : Fragment() {
         /**weather*/
         setWeatherInfo()
 
-        val weatherTextView = _binding!!.WeatherTextView
-
         Log.d(TAG, "get textview")
 
 
-        weatherTextView.setOnClickListener {
+        binding.WeatherTextView.setOnClickListener {
             Log.d(TAG, "set textview")
             val action = HomeFragmentDirections.actionNavigationHomeToWeatherFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.homeImageButton.setOnClickListener {
+            val action = HomeFragmentDirections.actionNavigationHomeToEditNewsFragment()
             findNavController().navigate(action)
         }
 

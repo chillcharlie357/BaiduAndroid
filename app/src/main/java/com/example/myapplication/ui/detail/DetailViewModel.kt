@@ -11,11 +11,13 @@ class DetailViewModel : ViewModel() {
     private val _title = MutableLiveData<String>()
     private val _avatarId = MutableLiveData<Int>()
     private val _post = MutableLiveData<String>()
+    private val _headImageId = MutableLiveData<Int>()
+    private val _smallImageId = MutableLiveData<Int>()
 
     val author: LiveData<String> = _author
-    val title : LiveData<String> = _title
-    val  avatar_id : LiveData<Int> = _avatarId
-    val  post :LiveData<String> = _post
+    val title: LiveData<String> = _title
+    val avatar_id: LiveData<Int> = _avatarId
+    val post: LiveData<String> = _post
 
     init {
         _avatarId.value = R.drawable.icons8_avatar_48

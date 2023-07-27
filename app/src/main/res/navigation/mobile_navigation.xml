@@ -9,17 +9,20 @@
         android:id="@+id/navigation_home"
         android:name="com.example.myapplication.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
 
 
         <action
             android:id="@+id/action_navigation_home_to_detailFragment"
             app:destination="@id/detailFragment"
-            app:popUpTo="@id/navigation_home"
-            app:launchSingleTop="true"/>
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_home" />
         <action
             android:id="@+id/action_navigation_home_to_weatherFragment"
             app:destination="@id/weatherFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_editNewsFragment"
+            app:destination="@id/editNewsFragment" />
 
     </fragment>
 
@@ -38,8 +41,7 @@
         android:id="@+id/weatherFragment"
         android:name="com.example.myapplication.ui.weather.WeatherFragment"
         android:label="WeatherFragment"
-        tools:layout="@layout/fragment_weather"
-        />
+        tools:layout="@layout/fragment_weather" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.myapplication.ui.detail.DetailFragment"
@@ -49,4 +51,9 @@
             android:name="item_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/editNewsFragment"
+        android:name="com.example.myapplication.ui.EditNews.EditNewsFragment"
+        android:label="EditNewsFragment"
+        tools:layout="@layout/fragment_edit_news" />
 </navigation>
