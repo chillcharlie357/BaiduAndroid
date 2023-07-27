@@ -1,18 +1,13 @@
-package com.example.myapplication.ui.Detail
+package com.example.myapplication.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.navArgs
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDetailBinding
-import com.example.myapplication.databinding.FragmentWeatherBinding
-import com.example.myapplication.utils.tools.Companion.randomString
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
