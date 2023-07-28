@@ -3,4 +3,7 @@
     <string name="title_home">首页</string>
     <string name="title_video">视频</string>
     <string name="title_about">我的</string>
+    <string name="media_url">
+    https://storage.googleapis.com/exoplayer-test-media-0/play.mp3
+    </string>
 </resources>
