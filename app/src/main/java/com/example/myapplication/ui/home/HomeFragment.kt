@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
@@ -20,6 +22,7 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FeedItemWithImageBinding
 import com.example.myapplication.databinding.FeedItemWithoutImageBinding
 import com.example.myapplication.databinding.FragmentHomeBinding
+import java.net.URLEncoder
 
 class HomeFragment : Fragment() {
 
@@ -38,7 +41,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val recyclerView = _binding!!.feedList
@@ -68,6 +71,13 @@ class HomeFragment : Fragment() {
 
         binding.homeImageButton.setOnClickListener {
             val action = HomeFragmentDirections.actionNavigationHomeToEditNewsFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.searchButton.setOnClickListener {
+            Log.v(TAG, "Start search: $binding.searchBox.text")
+            val query = binding.searchBox.text.toString()
+            val action = HomeFragmentDirections.actionNavigationHomeToSearchFragment(query)
             findNavController().navigate(action)
         }
 

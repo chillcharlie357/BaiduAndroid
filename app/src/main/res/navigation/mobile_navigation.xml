@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_home_to_editNewsFragment"
             app:destination="@id/editNewsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchFragment"
+            app:destination="@id/searchFragment" />
 
     </fragment>
 
@@ -56,4 +59,14 @@
         android:name="com.example.myapplication.ui.EditNews.EditNewsFragment"
         android:label="EditNewsFragment"
         tools:layout="@layout/fragment_edit_news" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.myapplication.ui.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"
+        >
+        <argument
+            android:name="query"
+            app:argType="string" />
+    </fragment>
 </navigation>
