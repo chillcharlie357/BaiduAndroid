@@ -32,9 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
             android:ems="10"
             android:hint="请输入标题"
             android:inputType="text"
+            android:singleLine="false"
             android:visibility="visible" />
     </LinearLayout>
 
@@ -49,16 +51,18 @@
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="缩略图"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:src="@android:drawable/stat_sys_upload_done"
+            android:visibility="visible"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -67,13 +71,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="头图"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:src="@android:drawable/stat_sys_upload_done"
             tools:srcCompat="@tools:sample/avatars" />
 
     </LinearLayout>
@@ -101,17 +106,19 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:background="@android:drawable/editbox_background"
             android:ems="10"
             android:hint="请输入摘要"
             android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
@@ -128,26 +135,36 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:background="@drawable/bordered_background"
             android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="fill_vertical"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/editTextText3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
                     android:ems="10"
                     android:gravity="fill_vertical"
                     android:hint="请输入正文"
-                    android:inputType="text" />
+                    android:inputType="text|textMultiLine" />
             </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="提交"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
