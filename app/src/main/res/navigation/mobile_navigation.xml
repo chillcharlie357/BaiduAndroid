@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/editNewsFragment"
-        android:name="com.example.myapplication.ui.EditNews.EditNewsFragment"
+        android:name="com.example.myapplication.ui.editNews.EditNewsFragment"
         android:label="EditNewsFragment"
         tools:layout="@layout/fragment_edit_news" >
         <action
