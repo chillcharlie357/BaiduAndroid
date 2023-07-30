@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.EditNews
+package com.example.myapplication.ui.editNews
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

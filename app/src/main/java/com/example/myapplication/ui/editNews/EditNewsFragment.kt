@@ -1,11 +1,10 @@
-package com.example.myapplication.ui.EditNews
+package com.example.myapplication.ui.editNews
 
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.media3.common.util.Log
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
-import com.example.myapplication.data.AppDatabase
 import com.example.myapplication.data.application.MyApplication
 import com.example.myapplication.data.entity.NewsEntity
 import com.example.myapplication.databinding.FragmentEditNewsBinding
