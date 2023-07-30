@@ -65,6 +65,7 @@
         android:layout_weight="1"
         android:hint="Search"
         android:maxLines="1"
+        android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/feed_list"
         app:layout_constraintEnd_toStartOf="@+id/search_button"
         app:layout_constraintHorizontal_bias="0.5"
