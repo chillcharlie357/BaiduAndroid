@@ -11,7 +11,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="标题"
         android:textSize="20sp"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/player_view"

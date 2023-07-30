@@ -52,13 +52,20 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="item_id"
-            app:argType="string" />
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/editNewsFragment"
         android:name="com.example.myapplication.ui.EditNews.EditNewsFragment"
         android:label="EditNewsFragment"
-        tools:layout="@layout/fragment_edit_news" />
+        tools:layout="@layout/fragment_edit_news" >
+        <action
+            android:id="@+id/action_editNewsFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.myapplication.ui.search.SearchFragment"

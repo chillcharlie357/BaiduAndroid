@@ -18,7 +18,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
+import com.example.myapplication.data.AppDatabase
+import com.example.myapplication.data.entity.NewsEntity
 import com.example.myapplication.databinding.FeedItemWithImageBinding
 import com.example.myapplication.databinding.FeedItemWithoutImageBinding
 import com.example.myapplication.databinding.FragmentHomeBinding
@@ -34,14 +38,15 @@ class HomeFragment : Fragment() {
 
     private val fakeFeed = ArrayList<FeedItem>(1000)
 
+    private lateinit var homeViewModel: HomeViewModel
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val recyclerView = _binding!!.feedList
@@ -52,9 +57,12 @@ class HomeFragment : Fragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        initFakeFeed()
-        val adapter = FeedAdapter(fakeFeed)
-        recyclerView.adapter = adapter
+//        initFakeFeed()
+//        val adapter = FeedAdapter(fakeFeed)
+        homeViewModel.allNews.observe(viewLifecycleOwner) {
+            val adapter = FeedAdapter(it)
+            recyclerView.adapter = adapter
+        }
 
 
         /**weather*/
@@ -107,13 +115,13 @@ class HomeFragment : Fragment() {
         weatherInfoTextView.text = weatherInfo
     }
 
-    inner class FeedItem(val title: String, val imageId: Int? = null)
+    data class FeedItem(val title: String, val imageId: Int? = null)
     private companion object {
         const val TYPE_WITH_IMAGE = 1
         const val TYPE_WITHOUT_IMAGE = 2
     }
 
-    inner class FeedAdapter(val feedList: List<FeedItem>) :
+    inner class FeedAdapter(val feedList: List<NewsEntity>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         inner class FeedItemWithImageViewHolder(val binding: FeedItemWithImageBinding) :
@@ -124,7 +132,7 @@ class HomeFragment : Fragment() {
 
 
         override fun getItemViewType(position: Int): Int {
-            return if (feedList[position].imageId != null) {
+            return if (feedList[position].thumbnailImageUri != null) {
                 TYPE_WITH_IMAGE
             } else {
                 TYPE_WITHOUT_IMAGE
@@ -161,20 +169,29 @@ class HomeFragment : Fragment() {
             when (holder.itemViewType) {
                 TYPE_WITH_IMAGE -> {
                     val viewHolder = holder as FeedItemWithImageViewHolder
-                    viewHolder.binding.feedTitle.text = feedItem.title
-                    viewHolder.binding.feedImage.setImageResource(feedItem.imageId!!)
+
+                    viewHolder.binding.also {
+                        it.feedImage.setImageURI(Uri.parse(feedItem.thumbnailImageUri))
+                        it.feedAuthor.text = feedItem.author
+                        it.feedTitle.text = feedItem.title
+                    }
                 }
 
                 TYPE_WITHOUT_IMAGE -> {
                     val viewHolder = holder as FeedItemWithoutImageViewHolder
-                    viewHolder.binding.feedTitle.text = feedItem.title
+
+                    viewHolder.binding.also {
+                        it.feedAuthor.text = feedItem.author
+                        it.feedTitle.text = feedItem.title
+                    }
                 }
 
                 else -> throw IllegalArgumentException("Invalid view type")
             }
 
             holder.itemView.setOnClickListener {
-                val action = HomeFragmentDirections.actionNavigationHomeToDetailFragment("test")
+                val action =
+                    HomeFragmentDirections.actionNavigationHomeToDetailFragment(feedItem.id)
                 findNavController().navigate(action)
             }
         }
