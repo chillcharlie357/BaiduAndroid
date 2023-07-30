@@ -33,7 +33,11 @@
         android:id="@+id/navigation_viedo"
         android:name="com.example.myapplication.ui.video.VideoFragment"
         android:label="@string/title_video"
-        tools:layout="@layout/fragment_video" />
+        tools:layout="@layout/fragment_video" >
+        <action
+            android:id="@+id/action_navigation_viedo_to_fullScreenVideo"
+            app:destination="@id/fullScreenVideo" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_about"
@@ -74,6 +78,16 @@
         >
         <argument
             android:name="query"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullScreenVideo"
+        android:name="com.example.myapplication.ui.video.FullScreenVideo"
+        android:label="FullScreenVideo"
+        tools:layout="@layout/video_full_screen"
+        >
+        <argument
+            android:name="videoUri"
             app:argType="string" />
     </fragment>
 </navigation>

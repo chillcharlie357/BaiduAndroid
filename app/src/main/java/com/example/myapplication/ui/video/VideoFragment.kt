@@ -16,6 +16,7 @@ import androidx.media3.datasource.RawResourceDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.SimpleExoPlayer
 import androidx.media3.ui.PlayerView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -49,10 +50,6 @@ class VideoFragment : Fragment() {
         recyclerView.adapter = VideoListAdapter(sampleVideo)
 
         return root
-
-//        val b = VideoItemBinding.inflate(inflater, container, false)
-//        initializePlayer(b)
-//        return b.root
     }
 
     override fun onResume() {
@@ -61,16 +58,6 @@ class VideoFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-    }
-
-    @SuppressLint("InlinedApi")
-    private fun hideSystemUi() {
-        binding.videoList.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
     private val sampleVideo = ArrayList<Video>(100)
@@ -154,6 +141,7 @@ class VideoFragment : Fragment() {
             fun bind(video: Video) {
                 // Create a new ExoPlayer instance for this video
                 player = ExoPlayer.Builder(itemView.context).build().also {
+                    Log.w("video Uri","bind: ${video.videoUri}")
                     playerView.player = it
                     val videoUri = video.videoUri
                     val mediaItem =
@@ -164,6 +152,10 @@ class VideoFragment : Fragment() {
                 player?.prepare()
 
                 playerView.setOnClickListener {
+                    Log.w("video Uri", video.videoUri.toString())
+                    val action =
+                        VideoFragmentDirections.actionNavigationViedoToFullScreenVideo(video.videoUri.toString())
+                    findNavController().navigate(action)
                 }
             }
 

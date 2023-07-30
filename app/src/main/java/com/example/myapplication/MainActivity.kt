@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.detailFragment,
                 R.id.weatherFragment,
                 R.id.editNewsFragment,
-                R.id.searchFragment
+                R.id.searchFragment,
+                R.id.fullScreenVideo
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
