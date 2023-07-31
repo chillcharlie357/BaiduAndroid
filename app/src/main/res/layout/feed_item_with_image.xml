@@ -18,8 +18,10 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="12dp"
         android:layout_weight="0"
+        android:maxHeight="120dp"
         android:padding="2dp"
         android:visibility="visible"
+        tools:maxWidth="120dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
