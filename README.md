@@ -46,9 +46,11 @@ UI层对于的布局文件了：
 ![edit_news.png](README_assets%2Fedit_news.png)
 
 输入相关信息：
+
 ![news.png](README_assets%2Fnews.png)
 
 无图片的推文：
+
 ![no_image.png](README_assets%2Fno_image.png)
 
 提交后的首页：
@@ -61,9 +63,11 @@ UI层对于的布局文件了：
 点击首页左上角的文字，进入天气页。
 
 加载动画：
+
 ![loading.png](README_assets%2Floading.png)
 
 天气页：
+
 ![weather.png](README_assets%2Fweather.png)
 
 下方的recycleView可以滑动
@@ -81,9 +85,11 @@ UI层对于的布局文件了：
 测试时发现在某些版本模拟器上音频驱动出错无法播放，在实机上播放正常。
 
 可以一直向下滑动：
+
 ![video.png](README_assets%2Fvideo.png)
 
 单击视频跳转到单独界面：
+
 ![video_2.png](README_assets%2Fvideo_2.png)
 
 
