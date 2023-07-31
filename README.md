@@ -45,15 +45,24 @@ UI层对于的布局文件了：
 
 ![edit_news.png](README_assets%2Fedit_news.png)
 
+
+
 输入相关信息：
 
+
 ![news.png](README_assets%2Fnews.png)
+
+
 
 无图片的推文：
 
 ![no_image.png](README_assets%2Fno_image.png)
 
+
+
 提交后的首页：
+
+
 
 ![home_2.png](README_assets%2Fhome_2.png)
 
