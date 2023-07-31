@@ -7,7 +7,7 @@ import com.example.myapplication.data.entity.NewsEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NewsDAO {
+interface NewsDao {
     
     @Insert
     suspend fun insert(newsEntity: NewsEntity)

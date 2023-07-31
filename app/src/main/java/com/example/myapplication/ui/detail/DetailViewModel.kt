@@ -5,13 +5,10 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.R
 import com.example.myapplication.data.application.MyApplication
-import com.example.myapplication.utils.tools
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
     private val _author = MutableLiveData<String>()
@@ -20,7 +17,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     private val _content = MutableLiveData<String>()
     private val _headImageUri = MutableLiveData<Uri>()
     private val _thumbnailImageUri = MutableLiveData<Uri>()
-    private val newsDAO = (application as MyApplication).database.newsDAO()
+    private val newsDAO = (application as MyApplication).database.newsDao()
 
 
     val author: LiveData<String> = _author

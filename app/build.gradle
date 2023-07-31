@@ -3,8 +3,13 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.devtools.ksp'
+    id 'kotlin-kapt'
 }
-
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+}
 android {
     namespace 'com.example.myapplication'
     compileSdk 33
@@ -17,6 +22,16 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
     }
 
     buildTypes {
@@ -80,4 +95,5 @@ dependencies {
     def activity_version = "1.6.1"
     implementation "androidx.activity:activity-ktx:$activity_version"
 
+    kapt 'com.google.dagger:dagger-compiler:2.38.1'
 }
