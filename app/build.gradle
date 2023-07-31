@@ -5,11 +5,7 @@ plugins {
     id 'com.google.devtools.ksp'
     id 'kotlin-kapt'
 }
-kapt {
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
-}
+
 android {
     namespace 'com.example.myapplication'
     compileSdk 33
@@ -29,7 +25,7 @@ android {
         }
         kapt {
             arguments {
-                arg("room.schemaLocation", "$projectDir/schemas".toString())
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
     }

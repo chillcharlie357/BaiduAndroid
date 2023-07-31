@@ -1,15 +1,20 @@
 package com.example.myapplication.ui.home
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.service.controls.ControlsProviderService.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -73,8 +78,21 @@ class HomeFragment : Fragment() {
 
         binding.WeatherTextView.setOnClickListener {
             Log.d(TAG, "set textview")
-            val action = HomeFragmentDirections.actionNavigationHomeToWeatherFragment()
-            findNavController().navigate(action)
+            val progressBar = ProgressBar(activity)
+            progressBar.isIndeterminate = true
+
+            val alertDialog = AlertDialog.Builder(activity)
+                .setMessage("Loading...") // 设置消息文本
+                .setCancelable(false) // 禁用取消按钮
+                .setView(progressBar) // 将进度条添加到对话框中
+                .create()
+
+            alertDialog.show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                alertDialog.dismiss()
+                val action = HomeFragmentDirections.actionNavigationHomeToWeatherFragment()
+                findNavController().navigate(action)
+            }, 1500L) // 5000毫秒后关闭对话框
         }
 
         binding.homeImageButton.setOnClickListener {
