@@ -1,8 +1,15 @@
 # FinalProject
 
+[![wakatime](https://wakatime.com/badge/user/1febb2e7-04d7-4c59-8df1-ad2448b51726/project/4a6e3138-36dc-4949-940e-d08f9c36b8cb.svg)](https://wakatime.com/badge/user/1febb2e7-04d7-4c59-8df1-ad2448b51726/project/4a6e3138-36dc-4949-940e-d08f9c36b8cb)
+
 ## 介绍
 
-大作业
+百度前端大作业。南京大学暑期课程。
+
+大概是最后花了一个多星期速成的，这个项目写了四十个小时。加上之前自己技术选型，尝试其他写法的时间，可能总共花了50-60h左右。最后拿了优秀学员，好像有实习机会，感觉还不错。
+
+这个课程上课讲的有点简单，对于最后做大作业是不太够的，感觉主要还是得自己去多看官方文档，多Google（虽然这是百度的课程），多问问chat也挺有用的。
+
 
 ## 软件架构
 
